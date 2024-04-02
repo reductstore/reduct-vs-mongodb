@@ -14,16 +14,16 @@ python main.py
 
 The following table shows the average time taken to insert and retrieve binary data of different sizes into MongoDB and ReductStore.
 
-| Chunk Size | Operation | MongoDB, blob/s | ReductStore, blob/s | ReductStore, %  |
-|------------|-----------|-----------------|---------------------|-----------------|
-| 10 KB      | Write     | 258             | 223                 | -14             |
-|            | Read      | 187             | 195                 | 4               |
-| 100 KB     | Write     | 145             | 197                 | 36              |
-|            | Read      | 108             | 145                 | 34              |
-| 1 MB       | Write     | 32              | 52                  | 63              |
-|            | Read      | 20              | 29                  | 45              |
-| 10 MB      | Write     | 4               | 7                   | 75              |
-|            | Read      | 2               | 4                   | 100             |
+| Chunk Size | Operation | MongoDB, blob/s | ReductStore, blob/s | ReductStore, %    |
+|------------|-----------|-----------------|---------------------|-------------------|
+| 10 KB      | Write     | 258             | 223                 | -14%              |
+|            | Read      | 187             | 195                 | +4%               |
+| 100 KB     | Write     | 145             | 197                 | +36%              |
+|            | Read      | 108             | 145                 | +34%              |
+| 1 MB       | Write     | 32              | 52                  | +63%              |
+|            | Read      | 20              | 29                  | +45%              |
+| 10 MB      | Write     | 4               | 7                   | +75%              |
+|            | Read      | 2               | 4                   | +100%             |
 
 
 ## Ressources
