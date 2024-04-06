@@ -1,6 +1,7 @@
 # Benchmarks for MongoDB and ReductStore in Python
 
-This repository contains a simple benchmark for MongoDB and ReductStore in Python. The benchmark consists of inserting binary data into respective databases and measuring the time taken to insert and retrieve the data.
+This repository contains a simple benchmark for MongoDB and ReductStore in Python. The benchmark consists of inserting
+binary data into respective databases and measuring the time taken to insert and retrieve the data.
 
 ## Running
 
@@ -12,19 +13,19 @@ python main.py
 
 ## Results
 
-The following table shows the average time taken to insert and retrieve binary data of different sizes into MongoDB and ReductStore.
+The following table shows the average time taken to insert and retrieve binary data of different sizes into MongoDB and
+ReductStore.
 
-| Chunk Size | Operation | MongoDB, blob/s | ReductStore, blob/s | ReductStore, %    |
-|------------|-----------|-----------------|---------------------|-------------------|
-| 10 KB      | Write     | 258             | 223                 | -14%              |
-|            | Read      | 187             | 195                 | +4%               |
-| 100 KB     | Write     | 145             | 197                 | +36%              |
-|            | Read      | 108             | 145                 | +34%              |
-| 1 MB       | Write     | 32              | 52                  | +63%              |
-|            | Read      | 20              | 29                  | +45%              |
-| 10 MB      | Write     | 4               | 7                   | +75%              |
-|            | Read      | 2               | 4                   | +100%             |
-
+| Chunk Size | Operation | MongoDB, blob/s | ReductStore, blob/s | ReductStore, % |
+|------------|-----------|-----------------|---------------------|----------------|
+| 10 KB      | Write     | 529             | 1531                | +190%          |
+|            | Read      | 379             | 1303                | +244%          |
+| 100 KB     | Write     | 542             | 1384                | +155%          |
+|            | Read      | 380             | 1131                | +198%          |
+| 1 MB       | Write     | 224             | 531                 | +137%          |
+|            | Read      | 169             | 358                 | +112%          |
+| 10 MB      | Write     | 31              | 80                  | +158%          |
+|            | Read      | 23              | 38                  | +65%           |
 
 ## Ressources
 

@@ -9,7 +9,7 @@ import asyncio
 
 from reduct import Client as ReductClient
 
-BLOB_SIZE = 10_000
+BLOB_SIZE = 10_000_000
 BLOB_COUNT = min(1000, 1_000_000_000 // BLOB_SIZE)
 
 CHUNK = random.randbytes(BLOB_SIZE)
