@@ -1,2 +1,2 @@
 pymongo
-reduct-py
+reduct-py==1.12.0

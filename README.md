@@ -13,19 +13,19 @@ python main.py
 
 ## Results
 
-The following table shows the average time taken to insert and retrieve binary data of different sizes into MongoDB and
+The following table shows the average time taken to insert and retrieve binary data of different sizes into MongoDB (with GridFS) and
 ReductStore.
 
 | Chunk Size | Operation | MongoDB, blob/s | ReductStore, blob/s | ReductStore, % |
 |------------|-----------|-----------------|---------------------|----------------|
-| 10 KB      | Write     | 529             | 1531                | +190%          |
-|            | Read      | 379             | 1303                | +244%          |
-| 100 KB     | Write     | 542             | 1384                | +155%          |
-|            | Read      | 380             | 1131                | +198%          |
-| 1 MB       | Write     | 224             | 531                 | +137%          |
-|            | Read      | 169             | 358                 | +112%          |
-| 10 MB      | Write     | 31              | 80                  | +158%          |
-|            | Read      | 23              | 38                  | +65%           |
+| 1 KB       | Write     | 799             | 7994                | +900%          |
+|            | Read      | 2008            | 47979               | +2300%         |
+| 10 KB      | Write     | 783             | 7431                | +850%          |  
+|            | Read      | 1918            | 32888               | +1600%         | 
+| 100 KB     | Write     | 694             | 3612                | +420%          | 
+|            | Read      | 1730            | 6250                | +260%          |
+| 1 MB       | Write     | 246             | 663                 | +170%          | 
+|            | Read      | 776             | 540                 | -30%           | 
 
 ## Ressources
 

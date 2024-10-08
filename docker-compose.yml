@@ -5,13 +5,13 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ${PWD}/data/mongodb/db:/data/db
+      - ./data/mongodb/db:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
 
   reductstore:
-    image: reduct/store:latest
+    image: reduct/store:v1.12.0
     ports:
       - "8383:8383"
     environment:
@@ -21,4 +21,4 @@ services:
       RS_BUCKET_1_QUOTA_SIZE: 50TB
 
     volumes:
-      - ${PWD}/data/reductstore:/data
+      - ./data/reductstore:/data

@@ -1,16 +1,14 @@
-from datetime import datetime
-
-from pymongo import MongoClient
-from gridfs import GridFS
-
+import asyncio
 import random
 import time
-import asyncio
+from datetime import datetime
 
-from reduct import Client as ReductClient
+from gridfs import GridFS
+from pymongo import MongoClient
+from reduct import Client as ReductClient, Batch
 
-BLOB_SIZE = 10_000_000
-BLOB_COUNT = min(1000, 1_000_000_000 // BLOB_SIZE)
+BLOB_SIZE = 1_000
+BLOB_COUNT = min(2000, 10_000_000_000 // BLOB_SIZE)
 
 CHUNK = random.randbytes(BLOB_SIZE)
 
@@ -68,9 +66,19 @@ async def write_to_reduct():
     ) as reduct_client:
         count = 0
         bucket = await reduct_client.get_bucket("benchmark")
+        batch = Batch()
         for _ in range(BLOB_COUNT):
-            await bucket.write("data", CHUNK)
-            count += BLOB_SIZE
+            batch.add(timestamp=datetime.now().timestamp(), data=CHUNK)
+            await asyncio.sleep(0.000001)  # To avoid time collisions
+            if len(batch) > 80 or batch.size > 8_000_000:
+                await bucket.write_batch("data", batch)
+                count += batch.size
+                batch.clear()
+
+        # Write the last batch
+        if len(batch) > 0:
+            await bucket.write_batch("data", batch)
+            count += batch.size
 
         return count
 
@@ -81,8 +89,9 @@ async def read_from_reduct(t1, t2):
     ) as reduct_client:
         count = 0
         bucket = await reduct_client.get_bucket("benchmark")
-        async for rec in bucket.query("data", t1, t2, ttl=90):
-            count += len(await rec.read_all())
+        async for rec in bucket.query("data", t1, t2):
+            async for chunk in rec.read(n=16_000):
+                count += len(chunk)
 
         return count
 
@@ -98,7 +107,7 @@ if __name__ == "__main__":
     ts_read = time.time()
     size = read_from_mongodb(ts, time.time())
     print(
-        f"Read {size / 1000_000} Mb from MongoDB: {BLOB_COUNT / (time.time() - ts)} req/s"
+        f"Read {size / 1000_000} Mb from MongoDB: {BLOB_COUNT / (time.time() - ts_read)} req/s"
     )
 
     loop = asyncio.new_event_loop()
@@ -111,5 +120,5 @@ if __name__ == "__main__":
     ts_read = time.time()
     size = loop.run_until_complete(read_from_reduct(ts, time.time()))
     print(
-        f"Read {size / 1000_000} Mb from ReductStore: {BLOB_COUNT / (time.time() - ts)} req/s"
+        f"Read {size / 1000_000} Mb from ReductStore: {BLOB_COUNT / (time.time() - ts_read)} req/s"
     )
